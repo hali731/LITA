@@ -17,96 +17,108 @@ export default function InvoicePrint({ order }) {
           <style>
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body {
-              font-family: 'Courier New', monospace;
-              width: 280px;
+              font-family: 'Courier New', Courier, monospace;
+              background-color: #f0f0f0;
+              padding: 20px;
+            }
+            .invoice-container {
+              background-color: #fff;
+              width: 100%;
+              max-width: 400px;
               margin: 0 auto;
-              padding: 10px;
-              font-size: 13px;
+              padding: 20px;
+              box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+              font-size: 15px;
               color: #000;
             }
             .invoice-header {
               text-align: center;
-              border-bottom: 1px dashed #000;
-              padding-bottom: 10px;
-              margin-bottom: 10px;
+              border-bottom: 2px dashed #000;
+              padding-bottom: 15px;
+              margin-bottom: 15px;
             }
             .invoice-header h2 {
-              font-size: 20px;
-              margin-bottom: 4px;
+              font-size: 24px;
+              margin-bottom: 5px;
             }
             .invoice-header p {
-              font-size: 11px;
-              color: #555;
+              font-size: 13px;
+              color: #444;
             }
             .invoice-info {
-              margin-bottom: 10px;
-              font-size: 12px;
-            }
-            .invoice-info p {
-              margin: 3px 0;
+              margin-bottom: 15px;
+              font-size: 14px;
+              line-height: 1.5;
             }
             .invoice-table {
               width: 100%;
               border-collapse: collapse;
-              margin-bottom: 10px;
+              margin-bottom: 15px;
             }
             .invoice-table th {
               text-align: left;
-              border-bottom: 1px dashed #000;
-              padding: 4px 0;
-              font-size: 12px;
+              border-bottom: 2px dashed #000;
+              padding: 8px 0;
+              font-size: 14px;
             }
             .invoice-table td {
-              padding: 4px 0;
-              font-size: 12px;
+              padding: 8px 0;
+              font-size: 14px;
               vertical-align: top;
             }
-            .invoice-table .right {
-              text-align: right;
-            }
-            .invoice-table .center {
-              text-align: center;
-            }
+            .invoice-table .right { text-align: right; }
+            .invoice-table .center { text-align: center; }
+            
             .invoice-total {
-              border-top: 1px dashed #000;
-              padding-top: 8px;
+              border-top: 2px dashed #000;
+              padding-top: 12px;
               margin-top: 5px;
               display: flex;
               justify-content: space-between;
               font-weight: bold;
-              font-size: 15px;
+              font-size: 18px;
             }
             .invoice-footer {
               text-align: center;
-              margin-top: 15px;
-              border-top: 1px dashed #000;
-              padding-top: 10px;
-              font-size: 11px;
-              color: #555;
-            }
-            .invoice-footer p {
-              margin: 3px 0;
+              margin-top: 20px;
+              border-top: 2px dashed #000;
+              padding-top: 15px;
+              font-size: 13px;
+              color: #444;
             }
             .invoice-status {
               display: inline-block;
-              padding: 2px 8px;
-              border-radius: 10px;
-              font-size: 11px;
+              padding: 4px 10px;
+              border-radius: 4px;
+              font-size: 13px;
               font-weight: bold;
+              border: 1px solid #000;
             }
-            .paid { background: #dcfce7; color: #166534; }
-            .unpaid { background: #fee2e2; color: #dc2626; }
             @media print {
-              body { width: 100%; }
+              body { 
+                background-color: transparent; 
+                padding: 0;
+              }
+              .invoice-container { 
+                box-shadow: none; 
+                max-width: 100%; 
+                margin: 0; 
+                padding: 10px;
+                font-size: 16px; /* Chữ to hơn khi in giấy A4 */
+              }
             }
           </style>
         </head>
         <body>
-          ${content.innerHTML}
+          <div class="invoice-container">
+            ${content.innerHTML}
+          </div>
           <script>
             window.onload = function() {
-              window.print();
-              window.onafterprint = function() { window.close(); };
+              setTimeout(function() {
+                window.print();
+                window.onafterprint = function() { window.close(); };
+              }, 500);
             };
           <\/script>
         </body>
