@@ -7,8 +7,6 @@ const productSchema = new mongoose.Schema(
 
     price: { type: Number, required: true },
 
-    quantity: { type: Number, default: 0 },
-
     image: String,
 
     category: {
@@ -21,6 +19,12 @@ const productSchema = new mongoose.Schema(
     isAvailable: {
       type: Boolean,
       default: true,
+    },
+
+    stockQuantity: {
+      type: Number,
+      default: 0,
+      min: 0,
     },
 
     soldCount: {

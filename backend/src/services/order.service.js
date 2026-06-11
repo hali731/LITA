@@ -59,6 +59,10 @@ if (!tableDoc) throw new Error("Table not found");
     const quantity = item.quantity;
     if (quantity <= 0) throw new Error("Invalid quantity");
 
+    if (quantity > product.stockQuantity) {
+      throw new Error(`Sản phẩm ${product.name} chỉ còn ${product.stockQuantity} phần`);
+    }
+
     totalAmount += product.price * quantity;
 
     newItems.push({
@@ -93,10 +97,21 @@ if (!tableDoc) throw new Error("Table not found");
 
   const order = await Order.create(orderData);
 
-  // ================= TABLE STATUS =================
+  // ================= TABLE STATUS & STOCK DECREMENT =================
   if (source === "qr" || source === "app") {
     tableDoc.status = "occupied";
     await tableDoc.save();
+  }
+
+  // Trừ số lượng tồn kho
+  for (const item of items) {
+    const product = await Product.findById(item.product);
+    product.stockQuantity -= item.quantity;
+    if (product.stockQuantity <= 0) {
+      product.stockQuantity = 0;
+      product.isAvailable = false;
+    }
+    await product.save();
   }
   console.log("USER IN SERVICE:", user);
 console.log("SOURCE:", source);

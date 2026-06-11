@@ -90,6 +90,10 @@ export default function POS() {
     setCart((prev) => {
       const exist = prev.find((p) => p._id === item._id);
       if (exist) {
+        if (exist.quantity >= item.stockQuantity) {
+          alert(`Món này chỉ còn ${item.stockQuantity} phần`);
+          return prev;
+        }
         return prev.map((p) =>
           p._id === item._id
             ? { ...p, quantity: p.quantity + 1 }

@@ -1,18 +1,18 @@
-// MenuForm.jsx
+//frontend/src/components/admin/menu/MenuForm.jsx
 import { useState, useEffect } from "react";
 
 export default function MenuForm({ selected, onSubmit }) {
   const [form, setForm] = useState({
-    name: "",
-    price: "",
-    category: "",
-    quantity: "",
-    image: "",
-  });
+  name: "",
+  price: "",
+  category: "",
+  stockQuantity: 0,
+  image: "",
+});
 
   useEffect(() => {
     if (selected) setForm(selected);
-    else setForm({ name: "", price: "", category: "", quantity: "", image: "" });
+    else setForm({ name: "", price: "", category: "", stockQuantity: 0, image: "" });
   }, [selected]);
 
   const handleChange = (e) =>
@@ -54,17 +54,17 @@ export default function MenuForm({ selected, onSubmit }) {
       />
 
       <input
+  type="number"
+  name="stockQuantity"
+  placeholder="Số lượng tồn"
+  value={form.stockQuantity}
+  onChange={handleChange}
+/>
+
+      <input
         name="category"
         placeholder="Danh mục"
         value={form.category}
-        onChange={handleChange}
-      />
-
-      <input
-        name="quantity"
-        type="number"
-        placeholder="Số lượng"
-        value={form.quantity}
         onChange={handleChange}
       />
 

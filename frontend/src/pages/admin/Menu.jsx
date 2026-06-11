@@ -34,7 +34,8 @@ export default function Menu() {
         name: item.name,
         price: item.price,
         category: item.category?.name || "Khác",
-        quantity: item.quantity,
+        categoryName: item.category?.name || "Khác",
+        stockQuantity: item.stockQuantity,
         image: item.image ? `${UPLOADS_URL}/${item.image}` : "",
         isActive: item.isAvailable,
       }));
@@ -91,7 +92,7 @@ export default function Menu() {
       formData.append("name", data.name);
       formData.append("price", data.price);
       formData.append("category", data.category);
-      formData.append("quantity", data.quantity);
+      formData.append("stockQuantity", data.stockQuantity);
 
       if (data.file) {
         formData.append("image", data.file);
