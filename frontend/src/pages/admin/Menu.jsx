@@ -90,6 +90,7 @@ export default function Menu() {
       formData.append("name", data.name);
       formData.append("price", data.price);
       formData.append("category", data.category);
+      formData.append("quantity", data.quantity);
 
       if (data.file) {
         formData.append("image", data.file);

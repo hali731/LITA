@@ -40,7 +40,7 @@ export const getProductByIdService = async (id) => {
 
 // CREATE
 export const createProductService = async (data) => {
-  const { name, price, category, image } = data;
+  const { name, price, category, quantity, image } = data;
 
   let categoryDoc;
 
@@ -59,6 +59,7 @@ export const createProductService = async (data) => {
   const product = await Product.create({
     name,
     price,
+    quantity,
     image,
     category: categoryDoc._id,
   });
