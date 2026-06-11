@@ -45,8 +45,8 @@ export default function Menu() {
   // category id gửi backend
   category: item.category?._id || item.category || "",
 
-  // category name hiển thị
-  categoryName: item.category?.name || item.category || "Khác",
+  // category name hiển thị (tránh hiện ID nếu mất liên kết)
+  categoryName: item.category?.name || "Khác",
 
   image: item.image
     ? `${UPLOADS_URL}/${item.image}`

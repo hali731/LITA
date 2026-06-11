@@ -72,7 +72,24 @@ export const updateProductService = async (id, data) => {
   const product = await Product.findById(id);
   if (!product) throw new Error("Product not found");
 
-  Object.assign(product, data);
+  const { category, ...otherData } = data;
+
+  if (category) {
+    let categoryDoc;
+    if (category.length === 24) {
+      categoryDoc = await Category.findById(category);
+    } else {
+      categoryDoc = await Category.findOne({ name: category });
+      if (!categoryDoc) {
+        categoryDoc = await Category.create({ name: category });
+      }
+    }
+    if (categoryDoc) {
+      product.category = categoryDoc._id;
+    }
+  }
+
+  Object.assign(product, otherData);
 
   // 🔥 AUTO AVAILABLE
   if (Number(product.stockQuantity) > 0) {
