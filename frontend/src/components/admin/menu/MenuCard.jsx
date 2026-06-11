@@ -9,7 +9,16 @@ export default function MenuCard({ item, onEdit, onDelete, onToggle }) {
       <div className="menu-info">
         <h4>{item.name}</h4>
         <p>{item.price.toLocaleString()} đ</p>
-        <small>{item.category}</small>
+        <p
+          className={`menu-stock ${
+            item.stockQuantity === 0 ? "out" : ""
+          }`}
+        >
+          {item.stockQuantity === 0
+            ? "Hết hàng"
+            : `Tồn: ${item.stockQuantity}`}
+        </p>
+        <small>{item.categoryName}</small>
       </div>
 
       <div className="menu-actions">
