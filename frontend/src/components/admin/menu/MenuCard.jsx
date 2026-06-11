@@ -9,7 +9,7 @@ export default function MenuCard({ item, onEdit, onDelete, onToggle }) {
       <div className="menu-info">
         <h4>{item.name}</h4>
         <p>{item.price.toLocaleString()} đ</p>
-        <small>{item.category}</small>
+        <small>{item.category} | SL: {item.quantity || 0}</small>
       </div>
 
       <div className="menu-actions">

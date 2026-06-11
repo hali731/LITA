@@ -34,6 +34,7 @@ export default function Menu() {
         name: item.name,
         price: item.price,
         category: item.category?.name || "Khác",
+        quantity: item.quantity,
         image: item.image ? `${UPLOADS_URL}/${item.image}` : "",
         isActive: item.isAvailable,
       }));
