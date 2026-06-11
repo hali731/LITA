@@ -12,6 +12,7 @@ import {
 import {
   protect,
   requireRole,
+  optionalAuth,
 } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
@@ -20,7 +21,7 @@ const router = express.Router();
 // CUSTOMER QR + STAFF + APP → dùng chung 1 API
 router.post(
   "/",
-  protect,
+  optionalAuth,
   createOrder
 );
 router.get("/me", protect, getMyOrders);

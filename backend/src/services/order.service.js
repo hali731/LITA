@@ -42,8 +42,8 @@ if (!tableDoc) throw new Error("Table not found");
   }
 
   // ================= CUSTOMER RULE =================
-  if ((source === "qr" || source === "app") && (!user || !user._id)) {
-    throw new Error("Login required for customer order");
+  if (source === "app" && (!user || !user._id)) {
+    throw new Error("Login required for app customer order");
   }
 
   // ================= CALCULATE =================

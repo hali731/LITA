@@ -22,7 +22,7 @@ export const payOrder = (id) => {
 
 // 👤 QR customer
 export const createQrOrder = (data) => {
-  return api.post("/orders/qr", data);
+  return api.post("/orders", data);
 };
 
 // 👨‍💼 STAFF (QUAN TRỌNG: KHÔNG /staff)
@@ -32,7 +32,7 @@ export const createStaffOrder = (data) => {
 
 // 📱 APP user
 export const createAppOrder = (data) => {
-  return api.post("/orders/app", data);
+  return api.post("/orders", data);
 };
 
 // 👉 OPTIONAL: alias nếu bạn lỡ dùng createOrder ở đâu đó

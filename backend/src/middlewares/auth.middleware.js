@@ -22,12 +22,34 @@ export const protect = (req, res, next) => {
     }
 
     req.user = {
-  _id: decoded.id,
-  role: decoded.role,
-};
+      _id: decoded.id,
+      role: decoded.role,
+    };
     next();
   } catch (error) {
     next(error);
+  }
+};
+
+export const optionalAuth = (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
+      return next();
+    }
+
+    const token = authHeader.split(" ")[1];
+    const decoded = verifyToken(token);
+
+    if (decoded) {
+      req.user = {
+        _id: decoded.id,
+        role: decoded.role,
+      };
+    }
+    next();
+  } catch (error) {
+    next(); // Ignore error for optional auth
   }
 };
 
