@@ -6,12 +6,13 @@ export default function MenuForm({ selected, onSubmit }) {
     name: "",
     price: "",
     category: "",
+    quantity: "",
     image: "",
   });
 
   useEffect(() => {
     if (selected) setForm(selected);
-    else setForm({ name: "", price: "", category: "", image: "" });
+    else setForm({ name: "", price: "", category: "", quantity: "", image: "" });
   }, [selected]);
 
   const handleChange = (e) =>
@@ -56,6 +57,14 @@ export default function MenuForm({ selected, onSubmit }) {
         name="category"
         placeholder="Danh mục"
         value={form.category}
+        onChange={handleChange}
+      />
+
+      <input
+        name="quantity"
+        type="number"
+        placeholder="Số lượng"
+        value={form.quantity}
         onChange={handleChange}
       />
 
