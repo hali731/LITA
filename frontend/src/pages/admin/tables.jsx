@@ -7,9 +7,9 @@ import {
   deleteTable,
 } from "../../services/tables.service.js";
 
-import TableGrid from "../../components/admin/table/TableGrid";
-import TableEditorPanel from "../../components/admin/table/TableEditorPanel";
-import TableFilter from "../../components/admin/table/TableFilter";
+import TableGrid from "../../components/admin/Table/TableGrid";
+import TableEditorPanel from "../../components/admin/Table/TableEditorPanel";
+import TableFilter from "../../components/admin/Table/TableFilter";
 import "../../assets/style/admin/table.css";
 
 export default function Tables() {
