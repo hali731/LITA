@@ -2,6 +2,11 @@ import { FiPlus, FiMinus, FiTrash } from "react-icons/fi";
 
 export default function CartItem({ item, setCart }) {
   const updateQty = (delta) => {
+    if (delta > 0 && item.quantity >= item.stockQuantity) {
+      alert(`Chỉ còn ${item.stockQuantity} phần`);
+      return;
+    }
+
     setCart((prev) =>
       prev
         .map((p) =>

@@ -135,17 +135,21 @@ export default function POScustomer() {
       (p) => p._id === item._id
     );
 
-    // 🔥 CHECK STOCK
-    if (
-      exist &&
-      exist.quantity >= item.stockQuantity
-    ) {
-      alert(
-        `Chỉ còn ${item.stockQuantity} phần`
-      );
+      // 🔥 CHECK STOCK
+      if (item.stockQuantity <= 0) {
+        alert(`Món này đã hết hàng!`);
+        return prev;
+      }
 
-      return prev;
-    }
+      if (
+        exist &&
+        exist.quantity >= item.stockQuantity
+      ) {
+        alert(
+          `Chỉ còn ${item.stockQuantity} phần`
+        );
+        return prev;
+      }
 
     if (exist) {
       return prev.map((p) =>

@@ -103,6 +103,11 @@ export default function POS() {
     );
 
     // 🔥 CHECK STOCK
+    if (item.stockQuantity <= 0) {
+      alert(`Món này đã hết hàng!`);
+      return prev;
+    }
+
     if (
       exist &&
       exist.quantity >= item.stockQuantity
