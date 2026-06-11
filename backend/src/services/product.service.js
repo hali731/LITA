@@ -40,7 +40,7 @@ export const getProductByIdService = async (id) => {
 
 // CREATE
 export const createProductService = async (data) => {
-  const { name, price, category, image } = data;
+  const { name, price, category, stockQuantity, image } = data;
 
   let categoryDoc;
 
@@ -59,6 +59,7 @@ export const createProductService = async (data) => {
   const product = await Product.create({
     name,
     price,
+    stockQuantity,
     image,
     category: categoryDoc._id,
   });
@@ -72,9 +73,20 @@ export const updateProductService = async (id, data) => {
   if (!product) throw new Error("Product not found");
 
   Object.assign(product, data);
+
+  // 🔥 AUTO AVAILABLE
+  if (Number(product.stockQuantity) > 0) {
+    product.isAvailable = true;
+  }
+
+  // 🔥 AUTO OUT OF STOCK
+  if (Number(product.stockQuantity) === 0) {
+    product.isAvailable = false;
+  }
+
   await product.save();
 
-  return product;
+  return product.populate("category", "name");
 };
 
 // DELETE

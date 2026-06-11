@@ -7,6 +7,7 @@ import MenuGrid from "../../components/admin/menu/MenuGrid";
 import MenuEditorPanel from "../../components/admin/menu/MenuEditorPanel";
 
 import "../../assets/style/admin/Menu.css";
+import { UPLOADS_URL } from "../../config/env.js";
 
 import {
   createMenu,
@@ -42,13 +43,13 @@ export default function Menu() {
   stockQuantity: item.stockQuantity || 0,
 
   // category id gửi backend
-  category: item.category?._id || "",
+  category: item.category?._id || item.category || "",
 
   // category name hiển thị
-  categoryName: item.category?.name || "Khác",
+  categoryName: item.category?.name || item.category || "Khác",
 
   image: item.image
-    ? `http://localhost:5000/uploads/${item.image}`
+    ? `${UPLOADS_URL}/${item.image}`
     : "",
 
   isActive: item.isAvailable,

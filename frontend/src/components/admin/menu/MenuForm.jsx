@@ -1,17 +1,26 @@
-// MenuForm.jsx
 import { useState, useEffect } from "react";
+import { UPLOADS_URL } from "../../../config/env.js";
 
-export default function MenuForm({ selected, onSubmit }) {
+export default function MenuForm({ selected, onSubmit, categories }) {
   const [form, setForm] = useState({
     name: "",
     price: "",
     category: "",
+    stockQuantity: 0,
     image: "",
   });
 
   useEffect(() => {
-    if (selected) setForm(selected);
-    else setForm({ name: "", price: "", category: "", image: "" });
+    if (selected) {
+      setForm({
+        ...selected,
+        category: selected.categoryName || selected.category,
+        // If image is a full URL, keep it, otherwise format it
+        image: selected.image ? (selected.image.startsWith('http') ? selected.image : `${UPLOADS_URL}/${selected.image}`) : ""
+      });
+    } else {
+      setForm({ name: "", price: "", category: "", stockQuantity: 0, image: "" });
+    }
   }, [selected]);
 
   const handleChange = (e) =>
@@ -33,10 +42,10 @@ export default function MenuForm({ selected, onSubmit }) {
       <h3>{selected ? "Cập nhật món" : "Thêm món"}</h3>
 
       {form.image && (
-        <img src={form.image} alt="" className="menu-preview" />
+        <img src={form.image} alt="preview" className="menu-preview" />
       )}
 
-      <input type="file" onChange={handleImageChange} />
+      <input type="file" onChange={handleImageChange} accept="image/*" />
 
       <input
         name="name"
@@ -47,6 +56,7 @@ export default function MenuForm({ selected, onSubmit }) {
 
       <input
         name="price"
+        type="number"
         placeholder="Giá"
         value={form.price}
         onChange={handleChange}
@@ -54,13 +64,28 @@ export default function MenuForm({ selected, onSubmit }) {
 
       <input
         name="category"
+        list="category-options"
         placeholder="Danh mục"
         value={form.category}
         onChange={handleChange}
       />
+      <datalist id="category-options">
+        {categories && categories.map((cat) => (
+          <option key={cat._id} value={cat.name} />
+        ))}
+      </datalist>
+
+      <input
+        name="stockQuantity"
+        type="number"
+        min="0"
+        placeholder="Tồn kho"
+        value={form.stockQuantity}
+        onChange={handleChange}
+      />
 
       <button onClick={() => onSubmit(form)}>
-        {selected ? "Update" : "Done"}
+        {selected ? "Cập nhật" : "Xong"}
       </button>
     </div>
   );
