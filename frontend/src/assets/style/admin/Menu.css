@@ -1,0 +1,206 @@
+/* ===== ROOT (reuse giống order) ===== */
+:root {
+  --pink-main: #fbcfe8;
+  --pink-soft: #fdf2f8;
+
+  --blue-main: #bfdbfe;
+  --blue-soft: #eff6ff;
+
+  --text-main: #334155;
+  --text-light: #64748b;
+
+  --bg-main: #f8fafc;
+  --white: #ffffff;
+
+  --radius: 14px;
+}
+
+/* ===== PAGE ===== */
+.menu-page {
+  padding: 20px;
+  background: var(--bg-main);
+  min-height: 100vh;
+}
+
+/* ===== SEARCH ===== */
+.menu-search {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.menu-search input {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  width: 100%;
+}
+
+/* ===== CATEGORY ===== */
+.menu-category {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.menu-category button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: var(--blue-soft);
+  cursor: pointer;
+}
+
+.menu-category button.active {
+  background: var(--pink-main);
+  color: white;
+}
+
+/* ===== LAYOUT ===== */
+.menu-content {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-left {
+  flex: 7;
+  min-width: 0;
+}
+
+.menu-right {
+   flex: 3;
+  background: var(--white);
+  padding: 15px;
+  border-radius: var(--radius);
+  
+}
+
+/* ===== GRID ===== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+/* ===== CARD ===== */
+.menu-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.menu-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.menu-card.inactive img {
+   opacity: 0.6;
+  filter: grayscale(40%);
+}
+
+.menu-card.inactive::after {
+  content: "Đã ẩn";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.menu-info {
+  padding: 10px;
+}
+
+.menu-info h4 {
+  margin: 0;
+}
+
+.menu-info p {
+  margin: 4px 0;
+  color: var(--text-light);
+}
+
+.menu-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 5px;
+}
+
+.menu-actions button {
+  border: none;
+  background: var(--white);
+  border-radius: 6px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* ===== FORM ===== */
+.menu-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.menu-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--pink-main);
+  color: white;
+  cursor: pointer;
+}
+
+.menu-preview {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .menu-content {
+    flex-direction: column;
+    
+  }
+
+  .menu-left,
+  .menu-right {
+    width: 100%;
+  }
+
+   .menu-right {
+    position: sticky;
+    top: 10px;
+    z-index: 10;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-grid {
+   
+  }
+}

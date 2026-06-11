@@ -1,0 +1,158 @@
+/* =========================
+   GLOBAL STYLE
+========================= */
+:root {
+  --primary: #f8b4d9;      /* hồng pastel */
+  --secondary: #a7f3ed;    /* xanh pastel */
+  --bg: #f9fafb;           /* nền trắng xám nhạt */
+  --card: #ffffff;
+  --text: #1f2937;
+  --border: #e5e7eb;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* =========================
+   LAYOUT SYSTEM
+========================= */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* SIDEBAR (MENU LEFT) */
+.sidebar {
+  width: 240px;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* CONTENT RIGHT */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* =========================
+   POS SCREEN (STAFF)
+========================= */
+.pos-container {
+  display: flex;
+  gap: 16px;
+  height: 100%;
+}
+
+/* MENU PRODUCTS */
+.product-list {
+  flex: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.product-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* CART */
+.cart {
+  flex: 1;
+  background: var(--card);
+  border-left: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* BUTTON */
+.btn {
+  background: var(--primary);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* SECOND BUTTON */
+.btn-secondary {
+  background: var(--secondary);
+  color: black;
+}
+
+/* =========================
+   CUSTOMER MENU (QR)
+========================= */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sidebar {
+    width: 180px;
+  }
+}

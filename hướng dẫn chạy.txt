@@ -1,0 +1,13 @@
+souleeta
+OO1kbDjb467QOQht
+hướng dẫn chạy:
+new terminal -> ở terminal thứ nhất : cd backend -> npm run dev
+ 		ở terminal thứ hai : cd frontend -> npm run dev
+
+đăng nhập  
+admin@gmail.com 
+staff@gmail.com
+customer@gmail.com
+MK: LITA123456  (cả 3 dùng chung 1 mk)
+
+truy cập database : truy cập mongodb atlass -> đăng nhập -> trên thanh navbar bên phải mục database có mục data expoler ấn chọn -> ấn chọn cluster0 -> connect 

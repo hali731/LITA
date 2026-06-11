@@ -1,0 +1,178 @@
+
+/* =========================
+   ROOT DESIGN SYSTEM (LITA)
+========================= */
+:root {
+  /* COLOR SYSTEM */
+  --primary: #f8b4d9;      /* pink pastel */
+  --secondary: a7f3ed;    /* green pastel */
+  --bg: #f9fafb;           /* background */
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+
+  /* ACCENT */
+  --accent: #f472b6;
+
+  /* SHADOW */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  /* TYPOGRAPHY */
+  --font: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* =========================
+   ROOT APP WRAPPER
+========================= */
+#root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   TYPOGRAPHY CLEAN
+========================= */
+h1, h2, h3 {
+  font-weight: 600;
+  color: var(--text);
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  color: var(--muted);
+}
+
+/* =========================
+   LINKS
+========================= */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================
+   BUTTON SYSTEM (LITA UI)
+========================= */
+button {
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: #111;
+}
+
+/* =========================
+   INPUT SYSTEM
+========================= */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  margin: 6px 0;
+  font-family: var(--font);
+}
+
+input:focus {
+  border-color: var(--primary);
+}
+
+/* =========================
+   CARD SYSTEM
+========================= */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+/* =========================
+   LAYOUT HELPERS
+========================= */
+.flex {
+  display: flex;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+/* =========================
+   SCROLLBAR CLEAN
+========================= */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}

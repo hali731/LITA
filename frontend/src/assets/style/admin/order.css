@@ -1,0 +1,291 @@
+/* ===== ROOT THEME ===== */
+:root {
+  --pink-main: #fbcfe8;
+  --pink-soft: #fdf2f8;
+
+  --blue-main: #bfdbfe;
+  --blue-soft: #eff6ff;
+
+  --green-soft: #dcfce7;
+  --yellow-soft: #fef9c3;
+  --red-soft: #fee2e2;
+
+  --text-main: #334155;
+  --text-light: #64748b;
+
+  --bg-main: #f8fafc;
+  --white: #ffffff;
+
+  --radius: 14px;
+}
+
+/* ===== PAGE ===== */
+.order-page {
+  padding: 20px;
+  background: var(--bg-main);
+  min-height: 100vh;
+}
+
+.order-page h2 {
+  margin-bottom: 15px;
+  color: var(--text-main);
+}
+
+/* ===== LAYOUT ===== */
+.order-content {
+  display: flex;
+  gap: 20px;
+}
+
+.order-left {
+  width: 60%;
+}
+
+.order-right {
+  width: 40%;
+  background: var(--white);
+  padding: 15px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* ===== FILTER ===== */
+.order-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.order-filter button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  background: var(--blue-soft);
+  color: var(--text-main);
+  transition: 0.2s;
+}
+
+.order-filter button.active {
+  background: var(--pink-main);
+  color: white;
+}
+
+/* ===== LIST ===== */
+.order-list {
+  display: grid;
+  gap: 12px;
+}
+
+/* ===== CARD ===== */
+.order-card {
+  padding: 14px;
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+}
+
+.order-card h4 {
+  margin: 0;
+  color: var(--text-main);
+}
+
+.order-card p {
+  margin: 6px 0;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.order-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== STATUS BADGE ===== */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status-pending { background: #eee; }
+.status-confirmed { background: var(--blue-main); }
+.status-preparing { background: var(--yellow-soft); }
+.status-ready { background: var(--pink-soft); }
+.status-completed { background: var(--green-soft); }
+.status-cancelled { background: var(--red-soft); }
+
+/* ===== PAYMENT ===== */
+.payment-paid {
+  color: #16a34a;
+  font-size: 12px;
+}
+
+.payment-unpaid {
+  color: #dc2626;
+  font-size: 12px;
+}
+
+/* ===== DETAIL ===== */
+.order-detail h3 {
+  margin-bottom: 10px;
+}
+
+.order-items {
+  margin-top: 10px;
+}
+
+.order-item-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+}
+
+/* ===== ACTION PANEL ===== */
+.order-actions {
+  margin-top: 20px;
+}
+
+.order-actions h4 {
+  margin-bottom: 10px;
+}
+
+.order-actions-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.order-actions button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: var(--blue-soft);
+  transition: 0.2s;
+}
+
+.order-actions button:hover {
+  background: var(--blue-main);
+}
+
+.order-pay-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--pink-main);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+/* ===== RESPONSIVE ===== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .order-left {
+    width: 50%;
+  }
+
+  .order-right {
+    width: 50%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .order-content {
+    flex-direction: column;
+  }
+
+  .order-left,
+  .order-right {
+    width: 100%;
+  }
+
+  .order-right {
+    margin-top: 10px;
+  }
+
+  /* Card lớn hơn cho mobile */
+  .order-card {
+    padding: 16px;
+  }
+
+  /* Nút dễ bấm */
+  .order-actions button {
+    flex: 1;
+    min-width: 45%;
+  }
+
+  .order-actions-buttons {
+    gap: 10px;
+  }
+
+  /* Item row co lại */
+  .order-item-row {
+    grid-template-columns: 2fr 1fr 1fr;
+    font-size: 12px;
+  }
+
+  .order-item-row span:last-child {
+    display: none; /* ẩn total để gọn */
+  }
+  .hide-mobile {
+  display: block;
+}
+
+.back-btn {
+  display: none;
+  margin-bottom: 10px;
+  border: none;
+  background: #eee;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+}
+
+/* Small mobile (iPhone SE etc) */
+@media (max-width: 480px) {
+  .order-page {
+    padding: 12px;
+  }
+
+  .order-filter button {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .order-card h4 {
+    font-size: 14px;
+  }
+
+  .order-card p {
+    font-size: 12px;
+  }
+
+  .order-pay-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+  .hide-mobile {
+    display: none;
+  }
+
+  .back-btn {
+    display: inline-block;
+  }
+}
