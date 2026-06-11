@@ -1,44 +1,15 @@
-//frontend/src/components/admin/menu/MenuCard.jsx
-import {
-  FiEdit2,
-  FiTrash2,
-  FiEye,
-  FiEyeOff,
-} from "react-icons/fi";
+// MenuCard.jsx
+import { FiEdit2, FiTrash2, FiEye, FiEyeOff } from "react-icons/fi";
 
-export default function MenuCard({
-  item,
-  onEdit,
-  onDelete,
-  onToggle,
-}) {
+export default function MenuCard({ item, onEdit, onDelete, onToggle }) {
   return (
-    <div
-      className={`menu-card ${
-        !item.isActive ? "inactive" : ""
-      }`}
-    >
+    <div className={`menu-card ${!item.isActive ? "inactive" : ""}`}>
       <img src={item.image} alt={item.name} />
 
       <div className="menu-info">
         <h4>{item.name}</h4>
-
-        <p>
-          {Number(item.price).toLocaleString()} đ
-        </p>
-
-        <p
-        className={`menu-stock ${
-          item.stockQuantity === 0 ? "out" : ""
-        }`}
-      >
-        {item.stockQuantity === 0
-          ? "Hết hàng"
-          : `Tồn: ${item.stockQuantity}`}
-      </p>
-
-        {/* FIX */}
-        <small>{item.categoryName}</small>
+        <p>{item.price.toLocaleString()} đ</p>
+        <small>{item.category}</small>
       </div>
 
       <div className="menu-actions">
@@ -46,20 +17,12 @@ export default function MenuCard({
           <FiEdit2 />
         </button>
 
-        <button
-          onClick={() => onDelete(item._id)}
-        >
+        <button onClick={() => onDelete(item._id)}>
           <FiTrash2 />
         </button>
 
-        <button
-          onClick={() => onToggle(item._id)}
-        >
-          {item.isActive ? (
-            <FiEye />
-          ) : (
-            <FiEyeOff />
-          )}
+        <button onClick={() => onToggle(item._id)}>
+          {item.isActive ? <FiEye /> : <FiEyeOff />}
         </button>
       </div>
     </div>

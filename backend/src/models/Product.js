@@ -21,18 +21,16 @@ const productSchema = new mongoose.Schema(
       default: true,
     },
 
-    stockQuantity: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-
     soldCount: {
       type: Number,
       default: 0,
     },
   },
   { timestamps: true }
+);
+
+export default mongoose.model("Product", productSchema);
+{ timestamps: true }
 );
 
 export default mongoose.model("Product", productSchema);

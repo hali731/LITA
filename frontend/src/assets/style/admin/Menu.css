@@ -175,6 +175,15 @@
   object-fit: cover;
   border-radius: 10px;
 }
+.menu-stock {
+  font-size: 13px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.menu-stock.out {
+  color: #dc2626;
+}
 
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {

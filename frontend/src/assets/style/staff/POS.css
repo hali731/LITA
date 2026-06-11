@@ -366,6 +366,263 @@
   cursor: not-allowed;
   box-shadow: none;
 }
+
+/* ================= PAYMENT ================= */
+
+.payment-box {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  border: 1px solid #e2e8f0;
+}
+
+.payment-box h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.payment-box label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  background: white;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  border: 1px solid #e2e8f0;
+}
+
+.payment-box label:hover {
+  background: #fdf2f8;
+  border-color: #f9a8d4;
+}
+
+.payment-box input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #f472b6;
+}
+
+/* ================= BANKING METHODS ================= */
+
+.banking-methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.banking-methods button {
+  border: none;
+  padding: 12px 10px;
+
+  border-radius: 12px;
+
+  background: #f8fafc;
+  color: #334155;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  border: 1px solid #e2e8f0;
+}
+
+.banking-methods button:hover {
+  transform: translateY(-2px);
+  background: #fdf2f8;
+  border-color: #f9a8d4;
+}
+
+/* ACTIVE PAYMENT */
+.banking-methods button.active {
+  background: linear-gradient(
+    135deg,
+    #f472b6,
+    #f9a8d4
+  );
+
+  color: white;
+
+  border-color: transparent;
+
+  box-shadow: 0 4px 12px rgba(244,114,182,0.3);
+}
+
+/* ================= TOTAL ================= */
+
+.order-total {
+  padding-top: 10px;
+  border-top: 1px dashed #ddd;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  color: #0f172a;
+}
+
+/* ================= BUTTON ================= */
+
+.checkout-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #f472b6,
+    #f9a8d4
+  );
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.checkout-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 20px rgba(244,114,182,0.25);
+}
+
+.checkout-btn:active {
+  transform: scale(0.98);
+}
+
+.checkout-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ================= NOTE ================= */
+
+.order-toolbox textarea {
+  background: #fafafa;
+  line-height: 1.5;
+}
+
+/* ================= SCROLL ================= */
+
+.cart-mini .cart-list::-webkit-scrollbar,
+.cart-drawer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-mini .cart-list::-webkit-scrollbar-thumb,
+.cart-drawer::-webkit-scrollbar-thumb {
+  background: #f9a8d4;
+  border-radius: 20px;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .cart-mini {
+    width: calc(100% - 30px);
+    right: 15px;
+    left: 15px;
+
+    bottom: 100px;
+
+    max-height: 70vh;
+  }
+
+  .banking-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-btn {
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .order-toolbox {
+    gap: 14px;
+  }
+}
+
+/* ================= SUCCESS PAYMENT ================= */
+
+.payment-success {
+  background: #dcfce7;
+  color: #166534;
+
+  padding: 12px;
+  border-radius: 12px;
+
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ================= LOADING ================= */
+
+.loading-btn {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading-btn::after {
+  content: "...";
+  animation: loadingDots 1s infinite;
+}
+
+@keyframes loadingDots {
+  0% {
+    content: ".";
+  }
+
+  50% {
+    content: "..";
+  }
+
+  100% {
+    content: "...";
+  }
+}
+.stock-label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 4px;
+  color: #16a34a;
+}
+
+.stock-label.out {
+  color: #dc2626;
+}
+
+.menu-card.out-stock {
+  opacity: 0.7;
+}
+
+.menu-card.out-stock img {
+  filter: grayscale(100%);
+}
+
+.add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* 📱 MOBILE */
 @media (max-width: 768px) {
   .menu-content {

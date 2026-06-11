@@ -1,3 +1,4 @@
+//backend/src/services/order.service.js
 import Order from "../models/Order.js";
 import Product from "../models/Product.js";
 import Table from "../models/Table.js";
@@ -49,33 +50,57 @@ if (!tableDoc) throw new Error("Table not found");
   let totalAmount = 0;
   const newItems = [];
 
-  for (const item of items) {
-    const product = await Product.findById(item.product);
+for (const item of items) {
+  const product = await Product.findById(item.product);
 
-    if (!product?.isAvailable) {
-      throw new Error("Product not available");
-    }
-
-    const quantity = item.quantity;
-    if (quantity <= 0) throw new Error("Invalid quantity");
-
-    if (quantity > product.stockQuantity) {
-      throw new Error(`Sản phẩm ${product.name} chỉ còn ${product.stockQuantity} phần`);
-    }
-
-    totalAmount += product.price * quantity;
-
-    newItems.push({
-      product: product._id,
-      name: product.name,
-      price: product.price,
-      quantity,
-    });
+  if (!product) {
+    throw new Error("Product not found");
   }
+
+  if (!product.isAvailable) {
+    throw new Error(`${product.name} is not available`);
+  }
+
+  const quantity = item.quantity;
+
+  if (quantity <= 0) {
+    throw new Error("Invalid quantity");
+  }
+
+  // 🔥 CHECK STOCK
+  if (product.stockQuantity <= 0) {
+    throw new Error(`${product.name} is out of stock`);
+  }
+
+  if (quantity > product.stockQuantity) {
+    throw new Error(
+      `${product.name} only has ${product.stockQuantity} left`
+    );
+  }
+
+  // 🔥 TRỪ KHO
+  product.stockQuantity -= quantity;
+
+  // 🔥 AUTO HẾT HÀNG
+  if (product.stockQuantity === 0) {
+    product.isAvailable = false;
+  }
+
+  await product.save();
+
+  totalAmount += product.price * quantity;
+
+  newItems.push({
+    product: product._id,
+    name: product.name,
+    price: product.price,
+    quantity,
+  });
+}
 
   // ================= BUILD ORDER =================
   const orderData = {
-  table: tableDoc._id,   // 🔥 FIX QUAN TRỌNG
+  table: tableDoc._id,
   items: newItems,
   totalAmount,
   note,
@@ -97,25 +122,12 @@ if (!tableDoc) throw new Error("Table not found");
 
   const order = await Order.create(orderData);
 
-  // ================= TABLE STATUS & STOCK DECREMENT =================
+  // ================= TABLE STATUS =================
   if (source === "qr" || source === "app") {
     tableDoc.status = "occupied";
     await tableDoc.save();
   }
-
-  // Trừ số lượng tồn kho
-  for (const item of items) {
-    const product = await Product.findById(item.product);
-    product.stockQuantity -= item.quantity;
-    if (product.stockQuantity <= 0) {
-      product.stockQuantity = 0;
-      product.isAvailable = false;
-    }
-    await product.save();
-  }
   console.log("USER IN SERVICE:", user);
-console.log("SOURCE:", source);
-console.log("TABLE ID TYPE:", typeof tableId);
 console.log("SOURCE:", source);
 console.log("TABLE INPUT:", table);
 console.log("TABLE FOUND:", tableDoc?._id);
@@ -170,9 +182,30 @@ export const updateOrderStatusService = async (id, status) => {
   }
 
   const order = await Order.findById(id);
-  if (!order) throw new Error("Order not found");
+
+  if (!order) {
+    throw new Error("Order not found");
+  }
+
+  // 🔥 CHỈ HOÀN 1 LẦN
+  if (status === "cancelled" && order.status !== "cancelled") {
+    for (const item of order.items) {
+      const product = await Product.findById(item.product);
+
+      if (product) {
+        product.stockQuantity += item.quantity;
+
+        if (product.stockQuantity > 0) {
+          product.isAvailable = true;
+        }
+
+        await product.save();
+      }
+    }
+  }
 
   order.status = status;
+
   await order.save();
 
   return order;
@@ -180,11 +213,29 @@ export const updateOrderStatusService = async (id, status) => {
 
 // ===== DELETE ORDER =====
 export const deleteOrderService = async (id) => {
-  const order = await Order.findByIdAndDelete(id);
+  const order = await Order.findById(id);
 
-  if (!order) throw new Error("Order not found");
+  if (!order) {
+    throw new Error("Order not found");
+  }
 
-  // 🔥 nếu xóa order → có thể reset bàn
+  // 🔥 HOÀN STOCK
+  for (const item of order.items) {
+    const product = await Product.findById(item.product);
+
+    if (product) {
+      product.stockQuantity += item.quantity;
+
+      if (product.stockQuantity > 0) {
+        product.isAvailable = true;
+      }
+
+      await product.save();
+    }
+  }
+
+  await Order.findByIdAndDelete(id);
+
   const table = await Table.findById(order.table);
 
   if (table) {
@@ -192,5 +243,7 @@ export const deleteOrderService = async (id) => {
     await table.save();
   }
 
-  return { message: "Order deleted" };
+  return {
+    message: "Order deleted",
+  };
 };

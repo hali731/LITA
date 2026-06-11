@@ -9,7 +9,6 @@ import { getTables } from "../../services/tables.service";
 import { createStaffOrder } from "../../services/order.service";
 
 import { useState, useMemo, useEffect } from "react";
-import { UPLOADS_URL } from "../../config/env.js";
 import "../../assets/style/staff/POS.css";
 
 export default function POS() {
@@ -32,12 +31,20 @@ export default function POS() {
       try {
         const res = await getMenus();
         const formatted = (res.data.data || res.data).map((item) => ({
-          _id: item._id,
-          name: item.name,
-          price: item.price,
-          category: item.category,
-          image: item.image ? `${UPLOADS_URL}/${item.image}` : "",
-        }));
+  _id: item._id,
+
+  name: item.name,
+
+  price: item.price,
+
+  stockQuantity: item.stockQuantity || 0,
+
+  category: item.category,
+
+  image: item.image
+    ? `http://localhost:5000/uploads/${item.image}`
+    : "",
+}));
         setMenus(formatted);
       } catch (err) {
         console.error("Lỗi load menu:", err);
@@ -87,22 +94,43 @@ export default function POS() {
 
   // ADD TO CART
   const addToCart = (item) => {
-    setCart((prev) => {
-      const exist = prev.find((p) => p._id === item._id);
-      if (exist) {
-        if (exist.quantity >= item.stockQuantity) {
-          alert(`Món này chỉ còn ${item.stockQuantity} phần`);
-          return prev;
-        }
-        return prev.map((p) =>
-          p._id === item._id
-            ? { ...p, quantity: p.quantity + 1 }
-            : p
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
-    });
-  };
+  setCart((prev) => {
+    const exist = prev.find(
+      (p) => p._id === item._id
+    );
+
+    // 🔥 CHECK STOCK
+    if (
+      exist &&
+      exist.quantity >= item.stockQuantity
+    ) {
+      alert(
+        `Chỉ còn ${item.stockQuantity} phần`
+      );
+
+      return prev;
+    }
+
+    if (exist) {
+      return prev.map((p) =>
+        p._id === item._id
+          ? {
+              ...p,
+              quantity: p.quantity + 1,
+            }
+          : p
+      );
+    }
+
+    return [
+      ...prev,
+      {
+        ...item,
+        quantity: 1,
+      },
+    ];
+  });
+};
 
   // CHECKOUT
   const handleCheckout = async () => {
@@ -131,7 +159,7 @@ export default function POS() {
   })),
   source: "staff",
   guestName: customer,
-  note: note, // 👈 thêm dòng này
+  note: note,
 };
     console.log("🔥 FINAL PAYLOAD:");
     console.log(JSON.stringify(payload, null, 2));
@@ -190,8 +218,8 @@ export default function POS() {
             setSelectedTable={setSelectedTable}
             customer={customer}
             setCustomer={setCustomer}
-            note={note}          // 👈 thêm
-            setNote={setNote}    // 👈 thêm
+            note={note}
+            setNote={setNote}
             onCheckout={handleCheckout}
             loading={loading}
           />
