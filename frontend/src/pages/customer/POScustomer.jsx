@@ -17,8 +17,10 @@ import { getMenus } from "../../services/menu.service";
 import { UPLOADS_URL } from "../../config/env.js";
 
 import {
-  createPayment,
+  getPaymentById,
 } from "../../services/payment.service";
+
+import { removeVietnameseTones } from "../../utils/stringUtils";
 
 export default function POScustomer() {
   const [params] = useSearchParams();
@@ -115,9 +117,10 @@ export default function POScustomer() {
         item.category?.name === category ||
         item.category === category;
 
-      const matchSearch = item.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      const normalizedSearch = removeVietnameseTones(search);
+      const normalizedName = removeVietnameseTones(item.name);
+
+      const matchSearch = normalizedName.includes(normalizedSearch);
 
       return (
         matchCategory && matchSearch

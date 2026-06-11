@@ -18,6 +18,7 @@ import {
 } from "../../services/menu.service";
 
 import { getCategories } from "../../services/category.service";
+import { removeVietnameseTones } from "../../utils/stringUtils";
 
 export default function Menu() {
   const [menus, setMenus] = useState([]);
@@ -93,9 +94,10 @@ export default function Menu() {
         category === "Tất cả" ||
         item.categoryName === category;
 
-      const matchSearch = item.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      const normalizedSearch = removeVietnameseTones(search);
+      const normalizedName = removeVietnameseTones(item.name);
+
+      const matchSearch = normalizedName.includes(normalizedSearch);
 
       return matchCategory && matchSearch;
     });

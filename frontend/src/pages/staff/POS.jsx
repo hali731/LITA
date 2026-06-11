@@ -8,6 +8,7 @@ import { getMenus } from "../../services/menu.service";
 import { UPLOADS_URL } from "../../config/env.js";
 import { getTables } from "../../services/tables.service";
 import { createStaffOrder } from "../../services/order.service";
+import { removeVietnameseTones } from "../../utils/stringUtils";
 
 import { useState, useMemo, useEffect } from "react";
 import "../../assets/style/staff/POS.css";
@@ -85,9 +86,10 @@ export default function POS() {
         item.category?.name === category ||
         item.category === category;
 
-      const matchSearch = item.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      const normalizedSearch = removeVietnameseTones(search);
+      const normalizedName = removeVietnameseTones(item.name);
+
+      const matchSearch = normalizedName.includes(normalizedSearch);
 
       return matchCategory && matchSearch;
     });
