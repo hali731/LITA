@@ -1,3 +1,5 @@
+import InvoicePrint from "./InvoicePrint";
+
 export default function OrderActionPanel({
   order,
   onUpdateStatus,
@@ -11,27 +13,30 @@ export default function OrderActionPanel({
 
       <div className="order-actions-buttons">
         <button onClick={() => onUpdateStatus("confirmed")}>
-          Confirm
+          Xác nhận
         </button>
         <button onClick={() => onUpdateStatus("preparing")}>
-          Preparing
+          Đang làm
         </button>
         <button onClick={() => onUpdateStatus("ready")}>
-          Ready
+          Sẵn sàng
         </button>
         <button onClick={() => onUpdateStatus("completed")}>
-          Complete
+          Hoàn thành
         </button>
         <button onClick={() => onUpdateStatus("cancelled")}>
-          Cancel
+          Hủy đơn
         </button>
       </div>
 
       <button className="order-pay-btn" onClick={onPay}>
         {order.paymentStatus === "paid"
-          ? "Đã thanh toán"
-          : "Thanh toán"}
+          ? "✅ Đã thanh toán"
+          : "💰 Thanh toán"}
       </button>
+
+      {/* 🖨️ IN HÓA ĐƠN */}
+      <InvoicePrint order={order} />
     </div>
   );
 }
