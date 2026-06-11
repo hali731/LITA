@@ -215,7 +215,7 @@ export default function POScustomer() {
       // CASH
       // =========================================
       if (
-        paymentMethod === "cash"
+        !paymentMethod || paymentMethod === "cash"
       ) {
         alert(
           "Đặt hàng thành công! Vui lòng thanh toán tại quầy."
