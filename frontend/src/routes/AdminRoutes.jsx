@@ -10,7 +10,7 @@ import CustomerPage from "../pages/admin/customer";
 import StaffPage from "../pages/admin/staff";
 import MorePage from "../components/admin/MorePage";
 import InvoicesPage from "../pages/admin/invoices";
-import PaymentPage from "../pages/admin/payment";
+import PaymentPage from "../pages/admin/Payment";
 export default function AdminRoutes() {
   return (
     <Routes>

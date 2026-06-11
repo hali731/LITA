@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../../assets/style/auth/auth.css";
 
-import facebookIcon from "../../assets/img/facebook.png";
-import googleIcon from "../../assets/img/google.png";
+import facebookIcon from "../../assets/img/Facebook.png";
+import googleIcon from "../../assets/img/Google.png";
 
 import { registerApi } from "../../services/auth.service";
 
