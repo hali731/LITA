@@ -5,6 +5,7 @@ import POSGrid from "../../components/staff/POSGrid";
 import CartPanel from "../../components/staff/CartPanel";
 
 import { getMenus } from "../../services/menu.service";
+import { UPLOADS_URL } from "../../config/env.js";
 import { getTables } from "../../services/tables.service";
 import { createStaffOrder } from "../../services/order.service";
 
@@ -42,7 +43,7 @@ export default function POS() {
   category: item.category,
 
   image: item.image
-    ? `http://localhost:5000/uploads/${item.image}`
+    ? `${UPLOADS_URL}/${item.image}`
     : "",
 }));
         setMenus(formatted);

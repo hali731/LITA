@@ -14,6 +14,7 @@ import {
 } from "../../services/order.service";
 
 import { getMenus } from "../../services/menu.service";
+import { UPLOADS_URL } from "../../config/env.js";
 
 import {
   createPayment,
@@ -72,7 +73,7 @@ export default function POScustomer() {
   category: item.category,
 
   image: item.image
-    ? `http://localhost:5000/uploads/${item.image}`
+    ? `${UPLOADS_URL}/${item.image}`
     : "",
 }));
 
