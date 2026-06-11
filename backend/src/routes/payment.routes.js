@@ -8,6 +8,7 @@ import {
 import {
   protect,
   requireRole,
+  optionalAuth,
 } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
@@ -17,7 +18,7 @@ const router = express.Router();
 // thanh toán
 router.post(
   "/",
-  protect,
+  optionalAuth,
   createPayment
 );
 

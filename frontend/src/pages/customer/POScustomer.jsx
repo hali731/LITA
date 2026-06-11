@@ -191,14 +191,6 @@ export default function POScustomer() {
         note,
       };
 
-      console.log(
-        "🔥 QR ORDER PAYLOAD:"
-      );
-
-      console.log(
-        JSON.stringify(payload, null, 2)
-      );
-
       // 🔥 TẠO ORDER
       const orderRes =
         await createQrOrder(payload);
@@ -206,54 +198,36 @@ export default function POScustomer() {
       const order =
         orderRes.data.data;
 
-      console.log(
-        "✅ ORDER SUCCESS:",
-        order
-      );
-
       // =========================================
-      // CASH
+      // CASH → chỉ tạo order, thanh toán tại quầy
       // =========================================
-      if (
-        !paymentMethod || paymentMethod === "cash"
-      ) {
+      if (paymentMethod === "cash") {
         alert(
-          "Đặt hàng thành công! Vui lòng thanh toán tại quầy."
+          "Đặt hàng thành công! Vui lòng thanh toán tại quầy. 🎉"
         );
 
         setCart([]);
         setShowCart(false);
         setNote("");
-
-        localStorage.removeItem(
-          "cart"
-        );
-
         return;
       }
 
       // =========================================
-      // BANKING
+      // BANKING → tạo payment record
       // =========================================
       await createPayment({
         orderId: order._id,
-
         method: "banking",
-
-        provider,
+        provider: provider || "vnpay",
       });
 
       alert(
-        `Thanh toán ${provider.toUpperCase()} thành công 🎉`
+        `Thanh toán ${(provider || "banking").toUpperCase()} thành công! 🎉`
       );
 
       setCart([]);
       setShowCart(false);
       setNote("");
-
-      localStorage.removeItem(
-        "cart"
-      );
 
     } catch (err) {
       console.log(
@@ -264,7 +238,7 @@ export default function POScustomer() {
       alert(
         err?.response?.data
           ?.message ||
-          "Thanh toán thất bại"
+          "Đặt hàng thất bại"
       );
     } finally {
       setLoading(false);

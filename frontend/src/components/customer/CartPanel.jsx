@@ -5,9 +5,10 @@ export default function CartPanel({
   cart,
   setCart,
   tableId,
-  note,        // 👈 thêm
-  setNote,     // 👈 thêm
-  onCheckout
+  note,
+  setNote,
+  onCheckout,
+  loading,
 }) {
   return (
     <div className="cart-panel">
@@ -20,12 +21,13 @@ export default function CartPanel({
       </div>
 
       <OrderSummaryCustomer
-  cart={cart}
-  tableId={tableId}
-  note={note}          // 👈 thêm
-  setNote={setNote}    // 👈 thêm
-  onCheckout={onCheckout}
-/>
+        cart={cart}
+        tableId={tableId}
+        note={note}
+        setNote={setNote}
+        onCheckout={onCheckout}
+        loading={loading}
+      />
     </div>
   );
 }
