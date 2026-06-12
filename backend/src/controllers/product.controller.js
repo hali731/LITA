@@ -7,6 +7,7 @@ import {
   deleteProductService,
   toggleProductService,
 } from "../services/product.service.js";
+import { uploadToImgBB } from "../middlewares/upload.middleware.js";
 
 // ===== PUBLIC =====
 
@@ -66,14 +67,17 @@ export const getProductById = async (req, res) => {
 // CREATE
 export const createProduct = async (req, res) => {
   try {
+    let imageUrl = null;
+    if (req.file) {
+      imageUrl = await uploadToImgBB(req.file.buffer);
+    }
+
     const data = {
       ...req.body,
-      image: req.file ? req.file.filename : null,
+      image: imageUrl,
     };
 
     const product = await createProductService(data);
-    console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
 
     res.status(201).json({
       success: true,
@@ -95,7 +99,7 @@ export const updateProduct = async (req, res) => {
     };
 
     if (req.file) {
-      data.image = req.file.filename;
+      data.image = await uploadToImgBB(req.file.buffer);
     }
 
     const product = await updateProductService(

@@ -44,7 +44,9 @@ export default function POS() {
   category: item.category,
 
   image: item.image
-    ? `${UPLOADS_URL}/${item.image}`
+    ? item.image.startsWith("http")
+      ? item.image
+      : `${UPLOADS_URL}/${item.image}`
     : "",
 }));
         setMenus(formatted);

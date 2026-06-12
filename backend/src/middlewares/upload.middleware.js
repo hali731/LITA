@@ -2,18 +2,8 @@
 import multer from "multer";
 import path from "path";
 
-// 📁 cấu hình storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const fileName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
-    cb(null, fileName);
-  },
-});
+// 📦 Dùng memory storage để lấy buffer upload lên ImgBB
+const storage = multer.memoryStorage();
 
 // 🛑 filter file (chỉ cho phép ảnh)
 const fileFilter = (req, file, cb) => {
@@ -38,3 +28,37 @@ export const upload = multer({
     fileSize: 5 * 1024 * 1024, // 5MB
   },
 });
+
+// 🚀 Function Upload ảnh lên ImgBB
+export const uploadToImgBB = async (fileBuffer) => {
+  if (!fileBuffer) return null;
+  
+  const apiKey = process.env.IMGBB_API_KEY?.trim();
+  if (!apiKey) {
+    throw new Error("Lỗi: Thiếu IMGBB_API_KEY trong biến môi trường Render!");
+  }
+
+  const base64Image = fileBuffer.toString("base64");
+
+  const formData = new URLSearchParams();
+  formData.append("key", apiKey);
+  formData.append("image", base64Image);
+
+  try {
+    const response = await fetch("https://api.imgbb.com/1/upload", {
+      method: "POST",
+      body: formData,
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      return data.data.url; // URL ảnh từ ImgBB
+    } else {
+      throw new Error(data.error?.message || "Lỗi upload lên ImgBB");
+    }
+  } catch (error) {
+    console.error("ImgBB Upload Error:", error.message);
+    throw error;
+  }
+};
